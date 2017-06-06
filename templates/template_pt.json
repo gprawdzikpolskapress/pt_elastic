@@ -26,11 +26,15 @@
         			}
 				},
 				"analyzer": {
-
                     "polish_stemmer_without_tags": {
                     	"tokenizer": "standard",
                     	"filter": ["lowercase", "polish_stem", "unique", "polish_stop"],
                     	"char_filter":["polish_special_letters_mapping"]
+                    },
+                    "polish_morfologic_without_tags": {
+                        "tokenizer": "standard",
+                        "filter": ["lowercase", "morfologik_stem", "unique", "polish_stop"],
+                        "char_filter":["polish_special_letters_mapping"]
                     }
 				}
 			}
