@@ -17,6 +17,11 @@
                             "ź => z",
                             "ż => z"
                         ]
+                    },
+                    "bbcode_replace": {
+                        "type": "pattern_replace",
+                        "pattern": "\\[\\/?[a-z]+\\]",
+                        "replacement": ""
                     }
                 },
 				"filter": {
@@ -26,15 +31,27 @@
         			}
 				},
 				"analyzer": {
-                    "polish_stemmer_without_tags": {
-                    	"tokenizer": "standard",
+                    "polish_stempel": {
+                    	"tokenizer": "whitespace",
                     	"filter": ["lowercase", "polish_stem", "unique", "polish_stop"],
                     	"char_filter":["polish_special_letters_mapping"]
                     },
-                    "polish_morfologic_without_tags": {
-                        "tokenizer": "standard",
+                    "polish_stempel_with_polish_letters_mapping": {
+                        "tokenizer": "whitespace",
+                        "filter": ["lowercase", "polish_stem", "unique", "polish_stop"]
+                    },
+                    "polish_morfologik": {
+                        "tokenizer": "whitespace",
                         "filter": ["lowercase", "morfologik_stem", "unique", "polish_stop"],
                         "char_filter":["polish_special_letters_mapping"]
+                    },
+                    "polish_morfologik_with_polish_letters_mapping": {
+                        "tokenizer": "whitespace",
+                        "filter": ["lowercase", "morfologik_stem", "unique", "polish_stop"]
+                    },
+                    "strip_tags_and_bbc": {
+                        "tokenizer": "keyword",
+                        "char_filter": ["html_strip", "bbcode_replace"]
                     }
 				}
 			}
@@ -44,13 +61,28 @@
         "material": {
             "properties": {
                 "content": { 
-                    "type": "string", 
-                    "fields": {
-                        "polish_stempel": {
-                            "type": "string",
-                            "analyzer": "polish_stemmer_without_tags"
-                        }
-                    } 
+                    "type": "string",
+                    "copy_to": ["content_morfologik", "content_morfologik_2", "content_stempel", "content_stempel_2"]
+                },
+                "content_morfologik": {
+                    "type": "string",
+                    "analyzer": "polish_morfologik",
+                    "store": true
+                },
+                "content_morfologik_2": {
+                    "type": "string",
+                    "analyzer": "polish_morfologik_with_polish_letters_mapping",
+                    "store": true
+                },
+                "content_stempel": {
+                    "type": "string",
+                    "analyzer": "polish_stempel",
+                    "store": true
+                },
+                "content_stempel_2": {
+                    "type": "string",
+                    "analyzer": "polish_stempel_with_polish_letters_mapping",
+                    "store": true
                 }
             }
         }
