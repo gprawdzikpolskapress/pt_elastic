@@ -31,21 +31,21 @@
         			}
 				},
 				"analyzer": {
-                    "polish_stempel": {
+                    "polish_stempel_with_polish_letters_mapping": {
                     	"tokenizer": "whitespace",
                     	"filter": ["lowercase", "polish_stem", "unique", "polish_stop"],
                     	"char_filter":["polish_special_letters_mapping"]
                     },
-                    "polish_stempel_with_polish_letters_mapping": {
+                    "polish_stempel": {
                         "tokenizer": "whitespace",
                         "filter": ["lowercase", "polish_stem", "unique", "polish_stop"]
                     },
-                    "polish_morfologik": {
+                    "polish_morfologik_with_polish_letters_mapping": {
                         "tokenizer": "whitespace",
                         "filter": ["lowercase", "morfologik_stem", "unique", "polish_stop"],
                         "char_filter":["polish_special_letters_mapping"]
                     },
-                    "polish_morfologik_with_polish_letters_mapping": {
+                    "polish_morfologik": {
                         "tokenizer": "whitespace",
                         "filter": ["lowercase", "morfologik_stem", "unique", "polish_stop"]
                     },
@@ -60,7 +60,19 @@
     "mappings": {
         "material": {
             "properties": {
-                "content": { 
+                "tresc": {
+                    "type": "string",
+                    "copy_to": ["content_morfologik", "content_morfologik_2", "content_stempel", "content_stempel_2"]
+                },
+                "tytul": {
+                    "type": "string",
+                    "copy_to": ["content_morfologik", "content_morfologik_2", "content_stempel", "content_stempel_2"]
+                },
+                "slowa_kluczowe": {
+                    "type": "string",
+                    "copy_to": ["content_morfologik", "content_morfologik_2", "content_stempel", "content_stempel_2"]
+                },
+                "zajawka": {
                     "type": "string",
                     "copy_to": ["content_morfologik", "content_morfologik_2", "content_stempel", "content_stempel_2"]
                 },
